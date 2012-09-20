@@ -4,13 +4,25 @@ use warnings;
 use Moo;
 use Text::CSV::Auto;
 
-has filename => ( is => 'ro');
+our $VERSION = '0.01';
+
+has filename => ( is => 'ro', required => 1);
 
 has csv => (is => 'ro', lazy => 1);
 
 sub _build_csv {
     my $self = shift;
+    my $csv = Text::CSV::Auto->new($self->filename);
 }
+
+sub process {
+
+}
+
+
+1; # End of Catalyst::Poll2012
+
+__END__
 
 =head1 NAME
 
@@ -20,28 +32,20 @@ Catalyst::Poll2012 - Analytics for the 2012 Catalyst Poll
 
 Version 0.01
 
-=cut
-
-our $VERSION = '0.01';
-
-
 =head1 SYNOPSIS
 
 Munging for the Catalyst Poll to make analysis tractable
+
+=head2 ATTRIBUTES
+
+filename : full path to where the data lives
+csv      : Text::CSV::Auto object (lazily built dependent on filename)
 
 =head2 METHODS
 
 process
 
 Mungs the data
-
-=cut
-
-sub process {
-
-}
-
-=cut
 
 =head1 AUTHOR
 
@@ -88,6 +92,7 @@ L<http://search.cpan.org/dist/Catalyst-Poll2012/>
 
 =head1 ACKNOWLEDGEMENTS
 
+John Napiorkowski for organising the survey.
 
 =head1 LICENSE AND COPYRIGHT
 
@@ -99,7 +104,4 @@ by the Free Software Foundation; or the Artistic License.
 
 See http://dev.perl.org/licenses/ for more information.
 
-
 =cut
-
-1; # End of Catalyst::Poll2012
