@@ -8,19 +8,25 @@ our $VERSION = '0.01';
 
 has filename => ( is => 'ro', required => 1);
 
-has csv => (is => 'ro', lazy => 1);
+has csv => (is => 'lazy');
 
 sub _build_csv {
     my $self = shift;
     my $csv = Text::CSV::Auto->new($self->filename);
+    return $csv;
 }
 
-sub process {
-
+sub all_data {
+    my $self = shift;
+    my @rows;
+    $self->csv->process( sub {
+        my $row = shift;
+        push @rows, $row;
+    });
+    return \@rows;
 }
 
-
-1; # End of Catalyst::Poll2012
+1;
 
 __END__
 
