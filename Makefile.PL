@@ -6,6 +6,8 @@ author   q{Kieren Diment <zarquon@cpan.org>};
 license  'perl';
 
 build_requires 'Test::More';
+requires 'Text::CSV::Auto';
+requires 'Moo';
 
 auto_install;
 
